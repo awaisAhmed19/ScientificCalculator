@@ -11,4 +11,4 @@ if __name__ == "__main__":
     postfix_expression = Tk.tokenize_expression(input_expression)
     Pst.postfix_Eval(postfix_expression)
     print(Pst.postfix_Eval(postfix_expression))
-    print(postfix_expression)
+    
