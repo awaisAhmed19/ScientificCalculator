@@ -1,7 +1,8 @@
-from Expression_handler import Expression_handler
-from Expression_handler import is_digit
+from Tokenization import is_digit 
+from Tokenization import is_operator 
 
-exp=Expression_handler
+#from Expression_handler import is_digit
+
 def Evaluate(x,y,operation):
         symbols={
           '+':x+y,
@@ -16,11 +17,11 @@ class Postfix_Evaluation:
          self.operand=[]
          
     def postfix_Eval(self,Eval_expression):
-        expression=Eval_expression
+        expression=Eval_expression.split()
         for char in expression:
             if is_digit(char):
                   self.operand.append(float(char))
-            elif exp.is_operator(char):
+            elif is_operator(char):
                 op1=self.operand.pop()
                 op2=self.operand.pop()
                 self.operand.append(Evaluate(op2,op1,char))
