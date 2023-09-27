@@ -9,7 +9,7 @@ This project is a Python-based scientific calculator that includes a parsing alg
 - [Usage](#usage)
 - [Features](#features)
 - [Contributing](#contributing)
-- [License](#license)
+
 
 ## Installation
 
