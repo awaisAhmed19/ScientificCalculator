@@ -25,7 +25,7 @@ Run the calculator:
 
 python calculator.py
 
-[Usage]
+## Usage
 The calculator supports various mathematical operations, including addition, subtraction, multiplication, division, and exponentiation. Enter expressions in infix notation, and the calculator will parse and evaluate them using postfix notation.
 
 Example usage:
@@ -34,13 +34,13 @@ Enter an expression: 2 + 3 * 4
 Result: 14
 
 
-[Features]
+## Features
 1. Tokenizer for parsing mathematical expressions.
 2. Postfix evaluator for evaluating expressions.
 3. Support for basic arithmetic operations.
 4. User-friendly command-line interface.
 
-[Contributing]
+## Contributing
 Contributions are welcome! If you'd like to contribute to this project, please follow these guidelines:
 
 1. Fork the repository.
