@@ -1,68 +1,9 @@
 from Precedence import Precedence
 pd=Precedence()
+from ExpressionChecker import *
 
-def is_digit(token):
-    return '0'<=token<='9' 
-
-def is_operator(token):
-    return token in pd.OPERATORS 
-def is_letter(token):
-    return token.isalpha()
-
-def is_function(token):
-    function={'log','sin','cos','tan','sqrt'}
-    return token.lower() in function
-
-class Tokenization:
-    def __init__(self) :
-        self.tokens=[]
-        self.buffer=""
-        self.in_parenthesis=False
+from Tokenization import Tokenization
     
-    def Tokenize(self, expression):
-        for token in expression:
-            if self.in_parenthesis:
-                if token==')':
-                    self.buffer+=token
-                    self.tokens.append(self.buffer)
-                    self.buffer=""
-                    self.in_parenthesis=False
-                else:
-                    self.buffer +=token
-            elif is_digit(token) or token=='.':
-
-                self.buffer+=token 
-
-            elif is_letter(token):
-
-                self.buffer+=token
-
-            elif is_operator(token):
-
-                if self.buffer:
-
-                    self.tokens.append(self.buffer)
-                    self.buffer=""
-                self.tokens.append(token)
-            elif token in'()':
-                if self.buffer:
-                    self.tokens.append(self.buffer)
-                    self.buffer=""
-                self.tokens.append(token)
-            elif token =='(':
-                if self.buffer:
-                    self.tokens.append(self.buffer)
-                    self.buffer=""
-                self.tokens.append(token)
-                self.in_parenthesis=True
-            elif token==' ':
-                continue
-            else:
-                pass
-        if self.buffer:
-            self.tokens.append(self.buffer)
-        return self.tokens
-        
 class PostfixConv (Tokenization):
     def __init__(self) :
         super().__init__()
@@ -115,7 +56,7 @@ class PostfixConv (Tokenization):
 
 
 
-
+#test snippet
 
 #expression = "(3 * 3^2 + 5 * 3 - 8) / (2 * 3 + 1)"
 #post = PostfixConv()

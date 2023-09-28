@@ -27,7 +27,7 @@ class Precedence:
     'max': 1,  # Maximum
     'min': 1,  # Minimum
     'round': 1,  # Round to the nearest integer
-    '!': 1  # Factorial
+    '!': 5  # Factorial
     }
 
 
