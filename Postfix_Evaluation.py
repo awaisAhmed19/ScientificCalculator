@@ -10,14 +10,14 @@ def Evaluate(x,y,operation):
           '*':x*y,
           '/':x/y,
           '^':x**y,
-        }
+        } 
         return symbols.get(operation,0)
 class Postfix_Evaluation:
     def __init__(self):
          self.operand=[]
          
     def postfix_Eval(self,Eval_expression):
-        expression=Eval_expression.split()
+        expression=Eval_expression
         for char in expression:
             
             if is_digit(char):

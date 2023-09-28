@@ -117,10 +117,10 @@ class PostfixConv (Tokenization):
 
 
 
-expression = "(3 * x^2 + 5 * x - 8) / (2 * x + 1)"
-post = PostfixConv()
-token= Tokenization()
-print(token.Tokenize(expression))
-print(" ".join(post.postfix(expression)))
+#expression = "(3 * 3^2 + 5 * 3 - 8) / (2 * 3 + 1)"
+#post = PostfixConv()
+#token= Tokenization()
+#print(token.Tokenize(expression))
+#print(" ".join(post.postfix(expression)))
 
 
