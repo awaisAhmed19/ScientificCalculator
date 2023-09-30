@@ -1,4 +1,3 @@
-# awaisAhmed19
 # Scientific Calculator Project
 
 This project is a Python-based scientific calculator that includes a parsing algorithm called a tokenizer and a postfix evaluator. These algorithms are fundamental for processing mathematical expressions and are the foundation for the calculator's functionality.
