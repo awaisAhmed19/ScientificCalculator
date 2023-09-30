@@ -1,7 +1,7 @@
 from Precedence import *
 pd=Precedence()
 def is_digit(token):
-        return '0'<=token<='9' 
+        return token.isdigit()
 
 def is_operator(token):
         return token in pd.OPERATORS 

@@ -17,17 +17,13 @@ class Tokenization:
                 else:
                     self.buffer +=token
             elif is_digit(token) or token=='.':
-
                 self.buffer+=token 
 
             elif is_letter(token):
-
                 self.buffer+=token
 
             elif is_operator(token):
-
                 if self.buffer:
-
                     self.tokens.append(self.buffer)
                     self.buffer=""
                 self.tokens.append(token)
@@ -48,4 +44,16 @@ class Tokenization:
                 pass
         if self.buffer:
             self.tokens.append(self.buffer)
+        #self.tokens=list(self.tokens)
         return self.tokens
+
+
+
+
+#test snippet
+#expression = "(1234567890 + 987654321) * 1000000 / 9999 - 555555"
+#post = Postfix_Evaluation()
+#token= Tokenization()
+#result=(token.Tokenize(expression))
+#print(result)
+#print(post.postfix_Eval(expression))

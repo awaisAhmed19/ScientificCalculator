@@ -19,6 +19,8 @@ class PostfixConv (Tokenization):
             #i=tokenList[index]
             if is_digit(i) or is_letter(i):
                 self.output.append(i)
+            elif is_function(i):
+                self.operator.append(i)
             
             elif i=='(':
                 self.operator.append(i)
@@ -37,20 +39,20 @@ class PostfixConv (Tokenization):
                 while (
                     self.operator
                     and self.operator[-1]!='('
-                    and pd.PRECEDENCE[i]<=pd.PRECEDENCE.get(self.operator[-1],0)
-                    
+                    and (
+                        pd.PRECEDENCE[i]<=pd.PRECEDENCE.get(self.operator[-1],0)
+                    or (
+                        pd.PRECEDENCE[i]==pd.PRECEDENCE.get(self.operator[-1],0)
+                        and pd.LEFT_ASSOCIATIVE.get(i,True)
+                    )
+                    )
                 ):
                     self.output.append(self.operator.pop())
                 self.operator.append(i)
-            
-            elif is_function(i):
-                self.operator.append(i)
-            #index += 1
-
 
         while self.operator:
             self.output.append(self.operator.pop())    
-        return self.output
+        return " ".join(self.output)
 
 
 
@@ -58,10 +60,11 @@ class PostfixConv (Tokenization):
 
 #test snippet
 
-#expression = "(3 * 3^2 + 5 * 3 - 8) / (2 * 3 + 1)"
+#expression = "(3+3)*10/9-5"
+#expression = "['(', '1234567890', '+', '987654321', ')', '*', '1000000', '/', '9999', '-', '555555']"
 #post = PostfixConv()
 #token= Tokenization()
 #print(token.Tokenize(expression))
-#print(" ".join(post.postfix(expression)))
+#print("".join(post.postfix(expression)))
 
 

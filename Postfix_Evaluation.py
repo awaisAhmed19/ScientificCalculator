@@ -19,9 +19,13 @@ class Postfix_Evaluation:
     def postfix_Eval(self,Eval_expression):
         expression=Eval_expression
         for char in expression:
-            
+            print(char)
             if is_digit(char):
                   self.operand.append(float(char))
+            elif is_function(char) :
+                  TrigFunction=char
+                  value=self.operand.pop()
+                  self.operand(cal.Tignometric_Eval(TrigFunction,value))
             elif char=='!':
                      op1=self.operand.pop()
                      self.operand.append(cal.factorial(op1))
@@ -30,12 +34,7 @@ class Postfix_Evaluation:
                 op2=self.operand.pop()
                 self.operand.append(Evaluate(op2,op1,char))
         return self.operand.pop()
-
-
-#test snippet
-#expression = "2! + 3! - 4!"
-#post = Postfix_Evaluation()
-#token= PostfixConv()
-#expression=" ".join(token.postfix(expression))
-#print(expression)
-#print(post.postfix_Eval(expression))
+#test code
+#ex="1234567890 987654321 + 1000000 * 9999 / 555555 -"
+#Pe=Postfix_Evaluation()
+#print(Pe.postfix_Eval(ex))
