@@ -1,3 +1,5 @@
+import math
+
 class Precedence:
     OPERATORS = {
         '^',  # Exponentiation
@@ -38,3 +40,5 @@ class Precedence:
         '-': True,   # Subtraction is left-associative
         '!': False   # Factorial is right-associative
     }
+
+    

@@ -14,5 +14,5 @@ if __name__ == "__main__":
     Pst.postfix_Eval(" ".join(postfix_expression))
 
     print(Pst.postfix_Eval(postfix_expression))
-    print(" ".join(postfix_expression))
+    #print(" ".join(postfix_expression))
      
