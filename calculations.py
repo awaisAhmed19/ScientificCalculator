@@ -40,8 +40,8 @@ class calculation:
               return temp*temp
          else:
               temp=self.power(x,(y-1)//2)
-              result=x*temp*temp 
-         return result
+             
+         return  x*temp*temp 
      
 
      def factorial(self,x):
@@ -57,6 +57,7 @@ class calculation:
 
 
      def sine(self,angle):
+        int(angle)
         if(angle in {0,30,45,60,90,180,270,360}):
             result= Trig.SIN.get(angle,0)
             return result
@@ -66,13 +67,14 @@ class calculation:
             sign=1
 
             for n in range(0,20):
-                term=(self.power(angle,(2*n+1))/self.factorial(2*n+1))
+                term=angle**(2*n+1)/math.factorial(2*n+1)
                 result+=sign*term
                 sign*=-1
             return (result) 
     
         
      def cosine(self,angle):
+        int (angle)
         if(angle in {0,30,45,60,90,180,270,360}):
             result= Trig.COS.get(angle,0)
             return result
@@ -89,6 +91,7 @@ class calculation:
          return (result)
      
      def tan(self,angle):
+         int(angle)
          if(angle in {0,30,45,60,90,180,270,360}):
             result= Trig.TAN.get(angle,0)
             return result
@@ -96,18 +99,21 @@ class calculation:
          return (result)
 
      def secant(self,angle):
+         int(angle)
          if(angle in {0,30,45,60,90,180,270,360}):
             result= Trig.SEC.get(angle,0)
             return result
          return (1/self.cosine(angle))
      
      def cotangent(self,angle):
+         int(angle)
          if(angle in {0,30,45,60,90,180,270,360}):
             result= Trig.COT.get(angle,0)
             return result
          return (1/self.tan(angle))
      
      def cosecant(self,angle):
+         int(angle)
          if(angle in {0,30,45,60,90,180,270,360}):
             result= Trig.COSEC.get(angle,0)
             return result

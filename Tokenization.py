@@ -1,59 +1,30 @@
-from ExpressionChecker import *
+import re
 
-class Tokenization:
-    def __init__(self) :
-        self.tokens=[]
-        self.buffer=""
-        self.in_parenthesis=False
+def Tokenize(expression):
+    # Define regular expressions for different token types
+    regex_patterns = [
+        (r'\d+(\.\d+)?', 'NUMBER'),                # Match numbers (e.g., 3, 3.14)
+        (r'[+\-*/^]', 'OPERATOR'),                # Match operators (+, -, *, /, ^)
+        (r'[()]', 'PARENTHESIS'),                # Match parentheses ( and )
+        (r'(sin|cos|tan|sqrt|log|abs|floor|ceil|max|min|round)', 'FUNCTION'),  # Match functions
+        (r'[a-zA-Z_]\w*', 'IDENTIFIER'),          # Match identifiers (e.g., variables)
+    ]
+
+    tokens = []
+    while expression:
+        for pattern, token_type in regex_patterns:
+            match = re.match(pattern, expression)
+            if match:
+                matched_text = match.group(0)
+                tokens.append((token_type, matched_text))
+                expression = expression[len(matched_text):].strip()
+                break
+        else:
+            raise ValueError(f"Cannot tokenize: {expression}")
     
-    def Tokenize(self, expression):
-        for token in expression:
-            if self.in_parenthesis:
-                if token==')':
-                    self.buffer+=token
-                    self.tokens.append(self.buffer)
-                    self.buffer=""
-                    self.in_parenthesis=False
-                else:
-                    self.buffer +=token
-            elif is_digit(token) or token=='.':
-                self.buffer+=token 
+    return [token[1] for token in tokens]
 
-            elif is_letter(token):
-                self.buffer+=token
-
-            elif is_operator(token):
-                if self.buffer:
-                    self.tokens.append(self.buffer)
-                    self.buffer=""
-                self.tokens.append(token)
-            elif token in'()':
-                if self.buffer:
-                    self.tokens.append(self.buffer)
-                    self.buffer=""
-                self.tokens.append(token)
-            elif token =='(':
-                if self.buffer:
-                    self.tokens.append(self.buffer)
-                    self.buffer=""
-                self.tokens.append(token)
-                self.in_parenthesis=True
-            elif token==' ':
-                continue
-            else:
-                pass
-        if self.buffer:
-            self.tokens.append(self.buffer)
-        #self.tokens=list(self.tokens)
-        return self.tokens
-
-
-
-
-#test snippet
-#expression = "(1234567890 + 987654321) * 1000000 / 9999 - 555555"
-#post = Postfix_Evaluation()
-#token= Tokenization()
-#result=(token.Tokenize(expression))
-#print(result)
-#print(post.postfix_Eval(expression))
+# Example usage:
+#expression = "sin(45) + cos(45)"
+#tokens = tokenize(expression)
+#print(tokens)

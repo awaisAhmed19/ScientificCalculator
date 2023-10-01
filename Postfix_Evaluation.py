@@ -1,5 +1,7 @@
 from ExpressionChecker import *
 from calculations import calculation
+from PostfixConv import *
+from Tokenization import *
 
 cal=calculation()  
 def Evaluate(x,y,operation):
@@ -19,13 +21,13 @@ class Postfix_Evaluation:
     def postfix_Eval(self,Eval_expression):
         expression=Eval_expression
         for char in expression:
-            print(char)
+            #print(char)
             if is_digit(char):
                   self.operand.append(float(char))
             elif is_function(char) :
                   TrigFunction=char
-                  value=self.operand.pop()
-                  self.operand(cal.Tignometric_Eval(TrigFunction,value))
+                  value=(self.operand.pop())
+                  self.operand.append(cal.Tignometric_Eval(TrigFunction,value))
             elif char=='!':
                      op1=self.operand.pop()
                      self.operand.append(cal.factorial(op1))
@@ -36,5 +38,11 @@ class Postfix_Evaluation:
         return self.operand.pop()
 #test code
 #ex="1234567890 987654321 + 1000000 * 9999 / 555555 -"
-#Pe=Postfix_Evaluation()
-#print(Pe.postfix_Eval(ex))
+expression = "sin(45)+cos(45)"
+
+Pc=PostfixConv()
+Pe=Postfix_Evaluation()
+#print(Tokenize(expression))
+expression=Pc.postfix(expression)
+print(expression)
+print(Pe.postfix_Eval(expression))
