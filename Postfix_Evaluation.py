@@ -1,48 +1,47 @@
-from ExpressionChecker import *
-from calculations import calculation
-from PostfixConv import *
-from Tokenization import *
+from calculations import Calculations
+from PostfixConv import PostfixConv
+from ExpressionChecker import is_digit, is_function, is_operator
 
-cal=calculation()  
-def Evaluate(x,y,operation):
-        symbols={
-          '+':cal.add(x,y),
-          '-':cal.sub(x,y),
-          '*':cal.mul(x,y),
-          '/':cal.div(x,y),
-          '^':cal.power(x,y),
-        } 
-        return symbols.get(operation)
-
-class Postfix_Evaluation:
+class PostfixEvaluator:
     def __init__(self):
-         self.operand=[]
-         
-    def postfix_Eval(self,Eval_expression):
-        expression=Eval_expression
-        for char in expression:
-            #print(char)
-            if is_digit(char):
-                  self.operand.append(float(char))
-            elif is_function(char) :
-                  TrigFunction=char
-                  value=(self.operand.pop())
-                  self.operand.append(cal.Tignometric_Eval(TrigFunction,value))
-            elif char=='!':
-                     op1=self.operand.pop()
-                     self.operand.append(cal.factorial(op1))
-            elif is_operator(char):
-                op1=self.operand.pop()
-                op2=self.operand.pop()
-                self.operand.append(Evaluate(op2,op1,char))
-        return self.operand.pop()
-#test code
-#ex="1234567890 987654321 + 1000000 * 9999 / 555555 -"
-expression = "sin(45)+cos(45)"
+        self.calculator = Calculations()
 
-Pc=PostfixConv()
-Pe=Postfix_Evaluation()
-#print(Tokenize(expression))
-expression=Pc.postfix(expression)
-print(expression)
-print(Pe.postfix_Eval(expression))
+    def evaluate(self, postfix_expression):
+        stack = []
+
+        for token in postfix_expression:
+            if is_digit(token):
+                stack.append(float(token))
+            elif is_function(token):
+                value = stack.pop()
+                stack.append(self.calculator.trigonometric_eval(token, value))
+            elif token == '!':
+                op1 = stack.pop()
+                stack.append(self.calculator.factorial(op1))
+            elif is_operator(token):
+                if len(stack)<2:
+                    raise ValueError("Insufficient operand for operator '{}'".format(token))
+                op1 = stack.pop()
+                op2 = stack.pop()
+                result = self.calculator.evaluate_operation(op2, op1, token)
+                stack.append(result)
+
+        if len(stack) == 1:
+            return stack[0]
+        else:
+            raise ValueError("Invalid postfix expression")
+
+def main():
+    expression = "sin(45) + cos(45)"
+
+    postfix_converter = PostfixConv()
+    postfix_expression = postfix_converter.postfix(expression)
+
+    evaluator = PostfixEvaluator()
+    result = evaluator.evaluate(postfix_expression)
+
+    print("Postfix Expression:", postfix_expression)
+    print("Result:", result)
+
+if __name__ == "__main__":
+    main()

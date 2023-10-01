@@ -7,7 +7,7 @@ class Precedence:
         '/',
         '+',  # Addition and Subtraction
         '-',
-        '!'  # Factorial
+        
     }
 
     PRECEDENCE = {
