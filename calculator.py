@@ -1,18 +1,19 @@
 
 
-from Postfix_Evaluation import Postfix_Evaluation
+from Postfix_Evaluation import PostfixEvaluator
 from PostfixConv import PostfixConv
 PC=PostfixConv()
-Pst=Postfix_Evaluation()
+Pst=PostfixEvaluator()
 
 if __name__ == "__main__":
     print("Enter an expression or a string")
     input_expression = input()
 
     postfix_expression = PC.postfix(input_expression)
+    print(" ".join(postfix_expression))
 
-    Pst.postfix_Eval(" ".join(postfix_expression))
+    print(Pst.evaluate(" ".join(postfix_expression)))
 
-    print(Pst.postfix_Eval(postfix_expression))
-    #print(" ".join(postfix_expression))
+   
+    
      

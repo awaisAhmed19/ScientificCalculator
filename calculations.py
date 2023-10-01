@@ -6,13 +6,17 @@ class Calculations:
     def __init__(self) :
         self.x = 0
         self.y = 0
-    def evaluate_operation(self,op2, op1, token):
-        match token:
-            case '+': self.add(op2,op1)
-            case '-': self.sub(op2,op1)
-            case '*': self.mul(op2,op1)
-            case '/': self.div(op2,op1)
-            case '^': self.power(op2,op1)
+    def evaluate_operation(self, op2, op1, token):
+        if token == '+':
+             self.add(op2, op1)
+        elif token == '-':
+             self.sub(op2, op1)
+        elif token == '*':
+             self.mul(op2, op1)
+        elif token == '/':
+             self.div(op2, op1)
+        elif token == '^':
+             self.power(op2, op1)
         
     def trigonometric_eval(self, trig_function, value):
         special_angles = {0, 30, 45, 60, 90, 180, 270, 360}
@@ -30,8 +34,8 @@ class Calculations:
             return result
 
     def add(self, x, y):
-        if x is None or y is None:
-            raise ValueError("One or both operands are None; addition is not possible.")
+        #if x is None or y is None:
+         #   raise ValueError("One or both operands are None; addition is not possible.")
         return x + y
 
     def sub(self, x, y):
