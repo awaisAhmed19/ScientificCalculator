@@ -1,9 +1,8 @@
 import math
 
-class TrignometricTable:
     
-    def __init__(self):
-        self.TAN = {
+    
+TAN = {
             0: 0,
             30: 1 / math.sqrt(3),
             45: 1,
@@ -14,7 +13,7 @@ class TrignometricTable:
             360: 0
         }
 
-        self.SIN = {
+SIN = {
             0: 0,
             30: 1 / 2,
             45: 1 / math.sqrt(2),
@@ -25,7 +24,7 @@ class TrignometricTable:
             360: 0
         }
 
-        self.COS = {
+COS = {
             0: 1,
             30: math.sqrt(3) / 2,
             45: 1 / math.sqrt(2),
@@ -36,7 +35,7 @@ class TrignometricTable:
             360: 1
         }
 
-        self.COT = {
+COT = {
             0: None,
             30: math.sqrt(3),
             45: 1,
@@ -47,7 +46,7 @@ class TrignometricTable:
             360: None
         }
 
-        self.COSEC = {
+COSEC = {
             0: None,
             30: 2,
             45: math.sqrt(2),
@@ -58,7 +57,7 @@ class TrignometricTable:
             360: None
         }
 
-        self.SEC = {
+SEC = {
             0: 1,
             30: 2 / math.sqrt(3),
             45: math.sqrt(2),
@@ -69,26 +68,4 @@ class TrignometricTable:
             360: -1
         }
 
-    def get(self, trig_function, angle):
-        if angle in self.TAN:
-            return self.TAN[angle] if trig_function == 'tan' else self.default_value(trig_function)
-        elif angle in self.SIN:
-            return self.SIN[angle] if trig_function == 'sin' else self.default_value(trig_function)
-        elif angle in self.COS:
-            return self.COS[angle] if trig_function == 'cos' else self.default_value(trig_function)
-        elif angle in self.COT:
-            return self.COT[angle] if trig_function == 'cot' else self.default_value(trig_function)
-        elif angle in self.COSEC:
-            return self.COSEC[angle] if trig_function == 'cosec' else self.default_value(trig_function)
-        elif angle in self.SEC:
-            return self.SEC[angle] if trig_function == 'sec' else self.default_value(trig_function)
-        else:
-            return self.default_value(trig_function)
     
-    def default_value(self, trig_function):
-        if trig_function == 'tan':
-            return float('inf')  # Represent undefined as positive infinity for tan
-        elif trig_function in ['sin', 'cos', 'cot', 'cosec', 'sec']:
-            return None  # Default value for other trig functions can be None
-        else:
-            raise ValueError("Unknown trigonometric function: {}".format(trig_function))

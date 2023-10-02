@@ -6,23 +6,25 @@ class Calculations:
     def __init__(self) :
         self.x = 0
         self.y = 0
-    def evaluate_operation(self, op2, op1, token):
-        if token == '+':
-             self.add(op2, op1)
-        elif token == '-':
-             self.sub(op2, op1)
-        elif token == '*':
-             self.mul(op2, op1)
-        elif token == '/':
-             self.div(op2, op1)
-        elif token == '^':
-             self.power(op2, op1)
+
         
-    def trigonometric_eval(self, trig_function, value):
+    def trigonometric_eval(self, trig, value):
         special_angles = {0, 30, 45, 60, 90, 180, 270, 360}
         if value in special_angles:
-            return TrignometricTable().get(trig_function.upper(), value)
+            if trig=='sin':
+                return SIN.get(value)
+            elif trig=='cos':
+               return COS.get(value)
+            elif trig=='tan':
+               return TAN.get(value)
+            elif trig=='cot':
+               return COT.get(value)
+            elif trig=='sec':
+               return SEC.get(value)
+            elif trig=='cosec':
+               return COSEC.get(value)
         else:
+           if(trig=='sin' and value not in special_angles):
             angle = self.radian(value)
             result = 0.0
             sign = 1
@@ -32,38 +34,15 @@ class Calculations:
                 result += sign * term
                 sign *= -1
             return result
+           elif  (trig=='cos' and value not in special_angles):
+            angle = self.radian(value)
+            result = 0.0
+            sign = 1
 
-    def add(self, x, y):
-        #if x is None or y is None:
-         #   raise ValueError("One or both operands are None; addition is not possible.")
-        return x + y
+            for n in range(0, 20):
+                term = angle**(2 * n ) / math.factorial(2 * n )
+                result += sign * term
+                sign *= -1
+            return result
 
-    def sub(self, x, y):
-        return x - y
-
-    def mul(self, x, y):
-        return x * y
-
-    def div(self, x, y):
-        if y == 0:
-            raise ValueError("Division by zero is not allowed.")
-        return x / y
-
-    def power(self, x, y):
-        if y == 0:
-            return 1
-        if y % 2 == 0:
-            temp = self.power(x, y // 2)
-            return temp * temp
-        else:
-            temp = self.power(x, (y - 1) // 2)
-        return x * temp * temp 
-
-    def factorial(self, x):
-        if x == 0:
-            return 1
-        else:
-            return x * self.factorial(x - 1)
-
-    def radian(self, angle):
-        return angle * (math.pi / 180)
+ 

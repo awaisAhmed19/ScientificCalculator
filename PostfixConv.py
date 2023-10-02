@@ -47,6 +47,6 @@ class PostfixConv():
         return result
 
 # Test snippet
-expression = "3+4+45*4"
-post = PostfixConv()
-print(post.postfix(expression))
+#expression = "3+4+45*4"
+#post = PostfixConv()
+#print(post.postfix(expression))
