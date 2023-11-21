@@ -24,7 +24,7 @@ def Tokenize(expression):
     
     return [token[1] for token in tokens]
 
-# Example usage:
+#Example usage:
 #expression = "sin(45) + cos(45)"
-#tokens = tokenize(expression)
-#print(tokens)
+#tokens = Tokenize(expression)
+# print(tokens)

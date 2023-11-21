@@ -47,6 +47,8 @@ class PostfixConv():
         return result
 
 # Test snippet
-#expression = "3+4+45*4"
+#expression = "sin(45)+cos(45)"
 #post = PostfixConv()
 #print(post.postfix(expression))
+#operator=['+','cos','(']
+#output=['45','sin',45,"cos",'+']

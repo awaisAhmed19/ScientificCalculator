@@ -1,6 +1,6 @@
-from PostfixConv import PostfixConv
-from ExpressionChecker import is_digit,is_operator, is_function, is_letter
 from calculations import Calculations
+from ExpressionChecker import is_digit, is_function, is_letter, is_operator
+from PostfixConv import PostfixConv
 
 cal=Calculations()
 PC=PostfixConv()
@@ -37,7 +37,7 @@ class Post_Evaluation():
             elif is_function(token):
                 value=int(self.output.pop())
                 trigFunc=token
-                self.output.append(cal.trigonometric_eval(trigFunc,value))
+                self.output.append(cal.function_eval(trigFunc,value))
             result=self.output
         return result
 
