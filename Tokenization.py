@@ -1,12 +1,13 @@
 import re
 
+
 def Tokenize(expression):
     # Define regular expressions for different token types
     regex_patterns = [
         (r'\d+(\.\d+)?', 'NUMBER'),                # Match numbers (e.g., 3, 3.14)
         (r'[+\-*/^]', 'OPERATOR'),                # Match operators (+, -, *, /, ^)
         (r'[()]', 'PARENTHESIS'),                # Match parentheses ( and )
-        (r'(sin|cos|tan|sqrt|log|abs|floor|ceil|max|min|round)', 'FUNCTION'),  # Match functions
+        (r'(sin|cos|tan|sqrt|log2|log10|abs|floor|ceil|max|min|round)', 'FUNCTION'),  # Match functions
         (r'[a-zA-Z_]\w*', 'IDENTIFIER'),          # Match identifiers (e.g., variables)
     ]
 

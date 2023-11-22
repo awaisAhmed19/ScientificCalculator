@@ -66,6 +66,11 @@ class Calculations:
                     return self._tan(value)
                 case 'sqrt':
                     return self._sqrt(value)
+                case 'log2':
+                    return math.log2(value) 
+                case 'log10':
+                    return math.log10(value)
+                    
               
 
  

@@ -10,7 +10,9 @@ Pst=Post_Evaluation()
 
 if __name__ == "__main__":
     #print("Enter an expression or a string")
-    input_expression = "sqrt(2)"
+    input_expression = "log10(14)"
+
+
     
     print(Tokenize(input_expression))
     postfix_expression = PC.postfix(input_expression)
