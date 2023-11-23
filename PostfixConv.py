@@ -1,6 +1,7 @@
-from Precedence import *
 from ExpressionChecker import *
+from Precedence import *
 from Tokenization import *
+
 pd=Precedence
 
 class PostfixConv():
@@ -13,14 +14,15 @@ class PostfixConv():
         tokenList = Tokenize(expression)
 
         for i in tokenList:
-            if is_digit(i) :
+            
+            if is_digit(i)or (tokenList[0] == '-' and is_digit(tokenList[1:])):
                 self.output.append(i)
             elif i == '(':
                 self.operator.append(i)
             elif i == ')':
                 while self.operator and self.operator[-1] != '(':
                     self.output.append(self.operator.pop())
-
+                self.operator.pop()
                 if self.operator and self.operator[-1] == '(':
                     self.operator.pop()
             elif is_operator(i):

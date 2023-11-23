@@ -24,8 +24,8 @@ class Post_Evaluation():
         
     def Post_Evaluation(self,Expression):
         for token in Expression:
-            if is_digit(token)or token[0]=='-' and is_digit(token[1:]):
-                self.output.append(float(token))
+            if is_digit(token) or token[0]=='-' and is_digit(token[1:]):
+                    self.output.append(float(token))
             
             elif is_operator(token):
                 op1=self.output.pop()
