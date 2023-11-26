@@ -1,5 +1,6 @@
 import re
 
+
 class Tokenizer:
     def __init__(self):
         self.pattern_dict = {
@@ -14,7 +15,9 @@ class Tokenizer:
             r'cos': 'COS',
             r'tan': 'TAN',
             r'sqrt': 'SQRT',
+            r'log2':'LOG2',
             r'log10': 'LOG10',
+            r'log':'LOG10',
             r'ln': 'LN',
             r'\^': 'POWER',
             r'=': 'ASSIGNMENT',
@@ -35,7 +38,11 @@ class Tokenizer:
 
     def tokenize(self, expression):
         pattern = '|'.join(f'({p})' for p in self.pattern_dict.keys())
+        #print(pattern)
         matches = re.findall(pattern, expression)
+        #print(matches)
         tokens = [group for match in matches for group in match if group]
-        tokens = [self.pattern_dict.get(token.lower(), token) for token in tokens]
+        #print(tokens)
+        #tokens = [self.pattern_dict.get(token.lower(),token) for token in tokens]
+        #print("Token",tokens)
         return tokens

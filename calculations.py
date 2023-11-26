@@ -121,7 +121,3 @@ class Calculations:
                     return self._log10(value)
                 case 'alog':
                     return self._alog(value)
-                    
-              
-
- 

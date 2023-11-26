@@ -21,35 +21,6 @@ class Post_Evaluation():
             return self.div(a,b)
         elif token=='^':
             return self.power(a,b)
-        
-    def Post_Evaluation(self,Expression):
-        for token in Expression:
-            if is_digit(token) or token[0]=='-' and is_digit(token[1:]):
-                    self.output.append(float(token))
-            
-            elif is_operator(token):
-                if token=='-' and len(self.output)>=2:
-                    op1=self.output.pop()
-                    op2=self.output.pop()
-                    self.output.append(self.evaluate(op2,op1,token))
-                elif token=='-' and len(self.output)==1:
-                    op=self.output.pop()
-                    self.output.append(self.negation(op))
-                else:
-                    op1=self.output.pop()
-                    op2=self.output.pop()
-                    self.output.append(self.evaluate(op2,op1,token))
-            elif token=='!':
-                ope=self.output.pop()
-                self.output.append(self.Fact(ope))
-            elif is_function(token):
-                value=int(self.output.pop())
-                trigFunc=token
-                self.output.append(cal.function_eval(trigFunc,value))
-            result=self.output
-        return result
-
-
     def add(self,x,y): return x+y
     def sub(self,x,y): return x-y
     def mul(self,x,y): return x*y
@@ -74,3 +45,34 @@ class Post_Evaluation():
             return 1
         else :
             return op*self.Fact(op-1)
+    def Post_Evaluation(self,exp):
+        Expression=PC.postfix(exp)
+        #print("postfix",Expression)
+        for token in Expression:
+            if is_digit(token) or token[0]=='-' and is_digit(token[1:]):
+                    self.output.append(float(token))
+            
+            elif is_operator(token):
+                if token=='-' and len(self.output)>=2:
+                    op1=self.output.pop()
+                    op2=self.output.pop()
+                    self.output.append(self.evaluate(op2,op1,token))
+                elif token=='-' and len(self.output)==1:
+                    op=self.output.pop()
+                    self.output.append(self.negation(op))
+                else:
+                    op1=self.output.pop()
+                    op2=self.output.pop()
+                    self.output.append(self.evaluate(op2,op1,token))
+            elif token=='!':
+                ope=self.output.pop()
+                self.output.append(self.Fact(ope))
+            elif is_function(token):
+                value=int(self.output.pop())
+                trigFunc=token
+                self.output.append(cal.function_eval(trigFunc,value))
+            result=self.output
+        return result.pop()
+
+
+
