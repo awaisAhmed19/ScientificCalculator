@@ -6,8 +6,7 @@ class Precedence:
         '*',  # Multiplication and Division
         '/',
         '+',  # Addition and Subtraction
-        '-',
-        
+        '-'
     }
 
     PRECEDENCE = {

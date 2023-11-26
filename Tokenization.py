@@ -1,31 +1,41 @@
 import re
 
+class Tokenizer:
+    def __init__(self):
+        self.pattern_dict = {
+            r'\d+': 'NUMBER',
+            r'\+': 'ADD',
+            r'\-': 'SUBTRACT',
+            r'\*': 'MULTIPLY',
+            r'\/': 'DIVIDE',
+            r'\(': 'LEFT_PAREN',
+            r'\)': 'RIGHT_PAREN',
+            r'sin': 'SIN',
+            r'cos': 'COS',
+            r'tan': 'TAN',
+            r'sqrt': 'SQRT',
+            r'log10': 'LOG10',
+            r'ln': 'LN',
+            r'\^': 'POWER',
+            r'=': 'ASSIGNMENT',
+            r'\.': 'DOT',
+            r',': 'COMMA',
+            r'!=': 'NOT_EQ',
+            r'>': 'GT',
+            r'<': 'LT',
+            r'>=': 'GEQ',
+            r'<=': 'LEQ',
+            r'==': 'EQ',
+            r'&&|\|\|': 'AND_OR',
+            r'!': 'NEGATE',
+            r'True': 'TRUE',
+            r'False': 'FALSE',
+            r'[xabpqy]': 'VARIABLE'
+        }
 
-def Tokenize(expression):
-    # Define regular expressions for different token types
-    regex_patterns = [
-        (r'\d+(\.\d+)?', 'NUMBER'),                # Match numbers (e.g., 3, 3.14)
-        (r'[+\-*/^]', 'OPERATOR'),                # Match operators (+, -, *, /, ^)
-        (r'[()]', 'PARENTHESIS'),                # Match parentheses ( and )
-        (r'(sin|cos|tan|sqrt|log2|log10|abs|floor|ceil|max|min|round)', 'FUNCTION'),  # Match functions
-        (r'[a-zA-Z_]\w*', 'IDENTIFIER'),          # Match identifiers (e.g., variables)
-    ]
-
-    tokens = []
-    while expression:
-            for pattern, token_type in regex_patterns:
-                match = re.match(pattern, expression)
-                if match:
-                    matched_text = match.group(0)
-                    tokens.append((token_type, matched_text))
-                    expression = expression[len(matched_text):].strip()
-                    break
-            else:
-                raise ValueError(f"Cannot tokenize: {expression}")
-    
-    return [token[1] for token in tokens]
-
-# Example usage:
-infix_expression = '-1 + 2 * 3'
-tokens = Tokenize(infix_expression)
-print(tokens)
+    def tokenize(self, expression):
+        pattern = '|'.join(f'({p})' for p in self.pattern_dict.keys())
+        matches = re.findall(pattern, expression)
+        tokens = [group for match in matches for group in match if group]
+        tokens = [self.pattern_dict.get(token.lower(), token) for token in tokens]
+        return tokens

@@ -4,7 +4,7 @@ from PostfixConv import PostfixConv
 
 cal=Calculations()
 PC=PostfixConv()
-#c=calc()
+
 
 top=-1
 class Post_Evaluation():
@@ -28,12 +28,20 @@ class Post_Evaluation():
                     self.output.append(float(token))
             
             elif is_operator(token):
-                op1=self.output.pop()
-                op2=self.output.pop()
-                self.output.append(self.evaluate(op2,op1,token))
+                if token=='-' and len(self.output)>=2:
+                    op1=self.output.pop()
+                    op2=self.output.pop()
+                    self.output.append(self.evaluate(op2,op1,token))
+                elif token=='-' and len(self.output)==1:
+                    op=self.output.pop()
+                    self.output.append(self.negation(op))
+                else:
+                    op1=self.output.pop()
+                    op2=self.output.pop()
+                    self.output.append(self.evaluate(op2,op1,token))
             elif token=='!':
-                 ope=self.output.pop()
-                 self.output.append(self.Fact(ope))
+                ope=self.output.pop()
+                self.output.append(self.Fact(ope))
             elif is_function(token):
                 value=int(self.output.pop())
                 trigFunc=token
@@ -45,7 +53,7 @@ class Post_Evaluation():
     def add(self,x,y): return x+y
     def sub(self,x,y): return x-y
     def mul(self,x,y): return x*y
-    def div(self,x,y): 
+    def div(self,x,y):
         if y==0: raise "cant div by zero"
         else:
             return x/y
@@ -59,16 +67,10 @@ class Post_Evaluation():
             else:
                 temp=self.power(x,(y-1)//2)
                 return temp*temp*x
-
+    def negation(self,x):
+        return -x
     def Fact(self,op):
-     if op==0:
-          return 1
-     else :
-          return op*self.Fact(op-1)
-     
-
-#pst=Post_Evaluation()
-#exp= "45 sin 30 cos + 60 tan -"
-
-#result=pst.Post_Evaluation(exp)
-#print(result)
+        if op==0:
+            return 1
+        else :
+            return op*self.Fact(op-1)
