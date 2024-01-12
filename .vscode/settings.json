@@ -1,2 +1,4 @@
 {
-    "editor.inlineSuggest.showToolbar": "onHover"
+    "editor.inlineSuggest.showToolbar": "onHover",
+    "python.pythonPath":"C://Python312//python.exe"
+}

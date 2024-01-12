@@ -62,10 +62,3 @@ class PostfixConv:
         # The final result is a list representing the postfix expression
         result = list(self.output)
         return result
-
-# Example usage
-#expression = "-19 + 3"
-#calculator = PostfixConv()
-#postfix_result = calculator.postfix(expression)
-#print("tokenization:", tk.tokenize(expression))
-#print("postfix conversion:", postfix_result)
