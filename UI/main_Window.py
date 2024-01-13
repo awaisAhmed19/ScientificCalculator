@@ -6,15 +6,18 @@ import PySimpleGUI as sg
 #PE=Post_Evaluation()
 
 layout = [
-    [sg.InputText(size=(50,4),key="-Display-")],
-    [sg.Button("7"),sg.Button("8"),sg.Button("9"),sg.Button(u'\u00F7')],
-    [sg.Button("4"),sg.Button("5"),sg.Button("6"),sg.Button("x")],
-    [sg.Button("1"),sg.Button("2"),sg.Button("3"),sg.Button("+")],
-    [sg.Button("0"),sg.Button("00"),sg.Button("-"),sg.Button("=")],
-    [sg.Button("C"),sg.Button("Sqrt"),sg.Button("Sin"),sg.Button("Cos"),sg.Button("Tan")],
+    [sg.Multiline(size=(50,7),key="-Display-",no_scrollbar=True)],
+    [sg.Button("log\u2090x",size=(5,2)),sg.Button("x\u00B2",size=(5,2)),sg.Button("a/b",size=(5,2)),sg.Button('\u221A',size=(5,2)),sg.Button("x\u00B2",size=(5,2))],
+    [sg.Button("x\u207F",size=(5,2)),sg.Button("log",size=(5,2)),sg.Button("ln",size=(5,2)),sg.Button("hyp",size=(5,2)),sg.Button("x\u00B3",size=(5,2))],
+    [sg.Button("Sin",size=(5,2)),sg.Button("Tan",size=(5,2)),sg.Button("Cos",size=(5,2)),sg.Button("e\u207F",size=(5,2)),sg.Button("x\u221Ax",size=(5,2))],
+    [sg.Button("7",size=(5,2)),sg.Button("8",size=(5,2)),sg.Button("9",size=(5,2)),sg.Button("C",size=(5,2)),sg.Button("AC",size=(5,2))],
+    [sg.Button("4",size=(5,2)),sg.Button("5",size=(5,2)),sg.Button("6",size=(5,2)),sg.Button(u'\u00F7',size=(5,2)),sg.Button("\u00D7",size=(5,2))],
+    [sg.Button("2",size=(5,2)),sg.Button("2",size=(5,2)),sg.Button("3",size=(5,2)),sg.Button("+",size=(5,2)),sg.Button("-",size=(5,2))],
+    [sg.Button("0",size=(5,2)),sg.Button(".",size=(5,2)),sg.Button("=",size=(5,2)),sg.Button("Ans",size=(5,2)),sg.Button("Exp",size=(5,2))]
+    
 ]
 
-window = sg.Window("Scientific Calculator", layout)
+window = sg.Window("Scientific Calculator", layout,size=(310,500),resizable=True,finalize=True)
 
 while True:
     event, values = window.read()
