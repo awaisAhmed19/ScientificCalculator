@@ -7,9 +7,9 @@
 *.o
 *.obj
 
-.vs/
-.vscode/
-__pycache__/
+.vs/*
+.vscode/*
+__pycache__/*
 
 # Precompiled Headers
 *.gch
