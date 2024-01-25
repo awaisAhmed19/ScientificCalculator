@@ -55,10 +55,9 @@ class PostfixConv:
                     self.output.append('0')  # Add a '0' to represent the unary minus
                 self.operator.append(i)
 
-        # Pop any remaining operators from the stack and append them to the output
         while self.operator:
             self.output.append(self.operator.pop())
 
-        # The final result is a list representing the postfix expression
+        
         result = list(self.output)
         return result

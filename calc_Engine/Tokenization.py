@@ -8,8 +8,8 @@ class Tokenizer:
             r'\d+': 'NUMBER',          # Match one or more digits
             r'\+': 'ADD',              # Match the plus sign
             r'\-': 'SUBTRACT',         # Match the minus sign
-            r'\*': 'MULTIPLY',         # Match the asterisk (multiplication)
-            r'\/': 'DIVIDE',           # Match the forward slash (division)
+            r'\\u00D7': 'MULTIPLY',         # Match the asterisk (multiplication)
+            r'\\u00F7': 'DIVIDE',           # Match the forward slash (division)
             r'\(': 'LEFT_PAREN',       # Match the left parenthesis
             r'\)': 'RIGHT_PAREN',      # Match the right parenthesis
             r'sin': 'SIN',             # Match the sin function

@@ -13,8 +13,8 @@ class Precedence:
         '(': 0,  # Parentheses for grouping (highest precedence)
         ')': 0,
         '^': 4,    # Exponentiation
-        '*': 3,    # Multiplication and Division
-        '/': 3,
+        '\u00D7': 3,    # Multiplication and Division
+        '\u00f7': 3,
         '+': 2,    # Addition and Subtraction
         '-': 2,
         'sin': 4,  # Trigonometric functions (Corrected precedence level)
@@ -33,8 +33,8 @@ class Precedence:
 
     LEFT_ASSOCIATIVE = {
         '^': False,  # Exponentiation is right-associative
-        '*': True,   # Multiplication is left-associative
-        '/': True,   # Division is left-associative
+        '\u00D7': True,   # Multiplication is left-associative
+        '\u00F7': True,   # Division is left-associative
         '+': True,   # Addition is left-associative
         '-': True,   # Subtraction is left-associative
         '!': False   # Factorial is right-associative
