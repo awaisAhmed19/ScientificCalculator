@@ -42,8 +42,9 @@ Result: 14
 ## Contributing
 Contributions are welcome! If you'd like to contribute to this project, please follow these guidelines:
 
-1. Fork the repository.
-2. Create a new branch for your feature or 3. bug fix: git checkout -b feature-name.
+1. install and setup VScode and git
+2. Fork the repository.
+3. Create a new branch for your feature or 3. bug fix: git checkout -b feature-name.
 4. Make your changes and commit them: git commit -m "Add feature-name".
-4. Push your changes to your fork: git push origin feature-name.
-5. Open a pull request on the main repository.
+5. Push your changes to your fork: git push origin feature-name.
+6. Open a pull request on the main repository.
