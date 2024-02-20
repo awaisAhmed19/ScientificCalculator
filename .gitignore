@@ -34,3 +34,5 @@ __pycache__/*
 *.exe
 *.out
 *.app
+
+/node_modules

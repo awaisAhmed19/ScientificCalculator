@@ -1,0 +1,15 @@
+{
+  "name": "scientificcalculator",
+  "version": "1.0.0",
+  "description": "This project is a Python-based scientific calculator that includes a parsing algorithm called a tokenizer and a postfix evaluator. These algorithms are fundamental for processing mathematical expressions and are the foundation for the calculator's functionality.",
+  "main": "calc_app/index.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "electron": "^29.0.0"
+  }
+}
