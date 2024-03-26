@@ -6,9 +6,9 @@ TAN = {
     30: 1 / math.sqrt(3),
     45: 1,
     60: math.sqrt(3),
-    90: None,   # Tangent is undefined at 90 degrees
+    90: None,
     180: 0,
-    270: None,  # Tangent is undefined at 270 degrees
+    270: None,
     360: 0
 }
 
