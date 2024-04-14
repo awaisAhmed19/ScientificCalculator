@@ -85,5 +85,3 @@ class Post_Evaluation():
             return 1
         else:
             return op * self.Fact(op - 1)
-
- 
