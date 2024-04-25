@@ -77,7 +77,8 @@ class Calculations:
 
     def _alog(self, value):
         return 10**value
-
+    def _inv(self,value):
+        return 1/value
     def _log10(self, value, precision=0.000000000000001):
         if value <= 0:
             return None
@@ -130,3 +131,5 @@ class Calculations:
                     return self._log10(value)
                 case 'alog':
                     return self._alog(value)
+                case 'inv':
+                    return self._inv(value)

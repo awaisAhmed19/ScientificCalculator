@@ -17,6 +17,7 @@ class Precedence:
         '/': 3,
         '+': 2,    
         '-': 2,
+        'inv':4,
         'sin': 4,  
         'cos': 4,  
         'tan': 4,  

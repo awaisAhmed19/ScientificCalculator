@@ -85,3 +85,6 @@ class Post_Evaluation():
             return 1
         else:
             return op * self.Fact(op - 1)
+        
+pe=Post_Evaluation()
+print(pe.Post_Evaluation("inv(7)"))

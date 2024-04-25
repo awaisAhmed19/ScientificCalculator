@@ -1,4 +1,6 @@
+import unittest
 from Postfix_Evaluation import Post_Evaluation
+t=unittest.TestCase()
 pe=Post_Evaluation()
 infix_expressions = {
     "5 + 3 * 2":11,
@@ -30,12 +32,16 @@ infix_expressions = {
     "4 - 2 + (6 - 3)":5,
     "9 / (3 * 1)":3,
     "2 + 3 * (8 - 4)":14,
-    "(6 - 2) * 3 + 1":13
+    "(6 - 2) * 3 + 1":13,
+    #"sin(0.5)":0.0087265354983,
+    "sin(33)":0.544639035015027,
+    "cos(33)":0.838670567945424
 }
 
+
 for infix_expr, expected_result in infix_expressions.items():
-    actual_result = pe.Post_Evaluation(infix_expr)  
-    if actual_result == expected_result:
-        print(f"Pass: {infix_expr} = {expected_result}")
+    actual_result = pe.Post_Evaluation(infix_expr)
+    if isinstance(expected_result, float):
+        t.assertAlmostEqual(actual_result, expected_result, delta=0.000000000000001)
     else:
-        print(f"Fail: {infix_expr} - Expected: {expected_result}, Actual: {actual_result}")
+        t.assertEqual(actual_result, expected_result)

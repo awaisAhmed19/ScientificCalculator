@@ -14,5 +14,5 @@ def is_letter(token):
     return token.isalpha()
 
 def is_function(token):
-    functions = ['sin', 'cos', 'tan', 'sqrt', 'log2', 'log10', 'log', 'alog']
+    functions = ['sin', 'cos', 'tan', 'sqrt', 'log2', 'log10', 'log', 'alog','inv']
     return token.lower() in functions
