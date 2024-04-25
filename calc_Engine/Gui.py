@@ -1,6 +1,8 @@
 import sys
 import pygame as pg
-import os 
+import os
+from Postfix_Evaluation import Post_Evaluation
+PE=Post_Evaluation()
 pg.init()
 
 WIDTH,HEIGHT=68*7,68*6
@@ -29,43 +31,43 @@ button_types=[
         "sqrt","(",")","00","0","dot","equal", 
 ]
 
-buttonLookup=[
-        "sin(",
-        "rad(",
-        "deg(",
-        "AC",
-        "%",
-        "back",
-        "/",
-        "cos(",
-        "tan(",
-        "inv(",
-        "7",
-        "8",
-        "9",
-        "*",
-        "log(",
-        "ln(",
-        "!",
-        "4",
-        "5",
-        "6",
-        "-",
-        "3.14",
-        "2.7682",
-        "^",
-        "1",
-        "2",
-        "3",
-        "-",
-        "sqrt",
-        "(",
-        ")",
-        "00",
-        "0",
-        ".",
-        "=", 
-]
+button_lookup = {
+    "sin": "sin(",
+    "rad": "rad(",
+    "deg": "deg(",
+    "AC": "AC",
+    "%": "%",
+    "back": "back",
+    "div": "/",
+    "cos": "cos(",
+    "tan": "tan(",
+    "inv": "inv(",
+    "7": "7",
+    "8": "8",
+    "9": "9",
+    "mul": "*",
+    "log": "log(",
+    "ln": "ln(",
+    "!": "!",
+    "4": "4",
+    "5": "5",
+    "6": "6",
+    "sub": "-",
+    "pie": "3.14",
+    "e": "2.7682",
+    "^": "^",
+    "1": "1",
+    "2": "2",
+    "3": "3",
+    "add": "+",
+    "sqrt": "sqrt",
+    "(": "(",
+    ")": ")",
+    "00": "00",
+    "0": "0",
+    "dot": ".",
+    "equal": "=" 
+}
 
 normalButtons_img_path=[]
 for file in os.listdir(normalButtons):
@@ -92,7 +94,7 @@ for button in pressedButtons_img_path:
     pressedButton_img.append(buttons)
 
 class Button:
-    def __init__(self, write, x, y, normal_img, pressed_img):
+    def __init__(self, button_type, x, y, normal_img, pressed_img):
         self.x = x
         self.y = y
         self.normal_img = normal_img
@@ -100,8 +102,9 @@ class Button:
         self.img = normal_img
         self.state = "normal"
         self.rect = self.img.get_rect(topleft=(x,y))
-        self.write = write
-        self.prev_state = False  # Previous state of mouse button
+        self.button_type= button_type
+        self.write=button_lookup.get(button_type,'')
+        self.prev_mouse_pressed=False
 
     def draw(self, screen):
         screen.blit(self.img, self.rect)
@@ -109,23 +112,25 @@ class Button:
     def update(self, mouse_pos, mouse_pressed):
         if self.rect.collidepoint(mouse_pos):
             self.img = self.pressed_img if mouse_pressed else self.normal_img
-            if mouse_pressed and not self.prev_state:  # Check if button was just pressed
-                self.handle_input()
         else:
             self.img = self.normal_img
-        self.prev_state = mouse_pressed  # Update previous state
-
-    def handle_input(self):
+        
+    def handle_input(self,mouse_pos,mouse_pressed):
         global user_text
-        if self.write in ['AC', 'back', '=']:
-            if self.write == "AC":
-                user_text = ''
-            elif self.write == 'back':
-                user_text = user_text[:-1]
-            elif self.write == '=':
-                pass
-        else:
-            user_text += self.write
+        if self.rect.collidepoint(mouse_pos):
+            if mouse_pressed and not self.prev_mouse_pressed:
+                if self.write in ['AC', 'back', '=']:
+                    if self.write == "AC":
+                        user_text = ''
+                    elif self.write == 'back':
+                        user_text = user_text[:-1]
+                    elif self.write == '=':
+                        temp=str(PE.Post_Evaluation(user_text))
+                        user_text=''
+                        user_text+=temp
+                else:
+                    user_text += self.write
+        self.prev_mouse_pressed=mouse_pressed
 
 
 
@@ -151,17 +156,18 @@ def main():
     GRID_START_X=(WIDTH-GRID_WIDTH)//2
     GRID_START_Y=(HEIGHT-GRID_HEIGHT)
     buttons=[]
-    for row in range(NUM_ROWS):
-        for col in range(NUM_COLS):
-            for text in buttonLookup:
-                index=row*NUM_COLS+col
-                x = GRID_START_X + col * (BUTTON_WIDTH + BUTTON_PADDING_X)
-                y = GRID_START_Y + row * (BUTTON_HEIGHT + BUTTON_PADDING_Y)
-                button = Button(text,x, y, normalButton_img[index], pressedButton_img[index])
-                buttons.append(button)
+    for index in range(len(button_types)):  
+        button_type = button_types[index]  
+        row = index // NUM_COLS  
+        col = index % NUM_COLS  
+        x = GRID_START_X + col * (BUTTON_WIDTH + BUTTON_PADDING_X)
+        y = GRID_START_Y + row * (BUTTON_HEIGHT + BUTTON_PADDING_Y)
+        button = Button(button_type, x, y, normalButton_img[index], pressedButton_img[index])
+        buttons.append(button)
 
     active=False
     while True:
+        clock.tick(10)
         for event in pg.event.get():
             if event.type==pg.QUIT:
                 pg.quit()
@@ -180,12 +186,10 @@ def main():
         mouse_pressed=pg.mouse.get_pressed()[0]
 
         for button in buttons:
+            button.handle_input(mouse_pos,mouse_pressed)
             button.update(mouse_pos,mouse_pressed)
-
-        for button in buttons:
             button.draw(screen)
         pg.display.flip()
-        clock.tick(30)
 
 if __name__=="__main__":
     main()
