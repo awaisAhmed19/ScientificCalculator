@@ -1,4 +1,11 @@
 {
     "editor.inlineSuggest.showToolbar": "onHover",
-    "python.pythonPath":"C://Python312//python.exe"
+    "python.pythonPath": "C://Python312//python.exe",
+    "reactSnippets.settings.prettierEnabled": true,
+    "vs-code-prettier-eslint.prettierLast": true,
+    "notebook.defaultFormatter": "rvest.vs-code-prettier-eslint",
+    "editor.defaultFormatter": "rvest.vs-code-prettier-eslint",
+    "[python]": {
+        "editor.defaultFormatter": "ms-python.black-formatter"
+    }
 }
