@@ -1,16 +1,12 @@
 import pygame as pg
 from pygame.locals import *
-import sys
-from sympy import symbols, Eq
-from sympy.abc import x
-
-pg.init()
 
 
 class GUI:
     def __init__(self):
+        pg.init()
         # self.surface = pg.display.get_surface()
-        self.WIDTH, self.HEIGHT = 800, 600
+        self.WIDTH, self.HEIGHT = 310, 530
         self.SIZE = (self.WIDTH, self.HEIGHT)
         self.font = pg.font.SysFont("Segoe UI Symbol ", 20)
         self.screen = pg.display.set_mode(self.SIZE, pg.RESIZABLE)
@@ -24,52 +20,71 @@ class GUI:
             "BLACK": (0, 0, 0),
         }
         self.button_array = [
-            ["2nd", "π", "e", "C", "→"],  # pi (π), e, and arrow (→)
-            ["𝜜²", "¹/𝜜", "|𝜜|", "exp", "mod"],  # x², 1/x, |x|
-            ["²√𝜜", "(", ")", "n!", "÷"],  # √𝒙, ÷
-            ["𝜜ʸ", "7", "8", "9", "×"],  # x^y, ×
-            ["10^𝜜", "4", "5", "6", "-"],  # 10^x
+            ["MC", "MR", "M+", "M-", "MS", "M"],
+            ["Trig", "Func"],
+            ["2nd", "π", "e", "C", "→"],
+            ["𝑥²", "¹/𝑥", "|𝑥|", "exp", "mod"],
+            ["²√𝑥", "(", ")", "n!", "÷"],
+            ["𝑥ʸ", "7", "8", "9", "𝑥"],
+            ["10ⁿ", "4", "5", "6", "-"],
             ["log", "1", "2", "3", "+"],
-            ["ln", "∓", "0", ".", "="],  # - subscript, 0
+            ["ln", "∓", "0", ".", "="],
         ]
 
         self.buttons = None
         self.button_w = (self.WIDTH / 5) - 3
-        self.button_h = (self.HEIGHT / 14) - 3
+        self.button_h = (self.HEIGHT / 18) - 3
         self.button_rect = None
         self.button_position = []
         self.button_matrix()
-        self.SetUp()
+
+    def Trig_func_dropdown(self):
+        pg.draw.line(
+            self.screen,
+            self.GUI_Colors["WHITE"],
+            (0, (self.HEIGHT / 2) - (self.HEIGHT / 14)),
+            (self.WIDTH, (self.HEIGHT / 2) - (self.HEIGHT / 14)),
+            2,
+        )
+
+        # self.button_matrix()
 
     def button_matrix(self):
         self.buttons = []
-        for i in range(7):
-            row = []
-            for j in range(5):
-                clicked = False
-                rect = pg.Rect(
-                    (j * (self.button_w + 3)),
-                    (i * (self.button_h + 3)) + (self.HEIGHT / 2),
-                    self.button_w,
-                    self.button_h,
-                )
+        rows = len(self.button_array)
+        for rowi, row in enumerate(self.button_array):
+            cols = len(row)
+            button_width = self.WIDTH / cols
+            button_height = (3 * self.HEIGHT / 4) / rows
+            y_offset = self.HEIGHT / 4  # Top margin
 
-                row.append({"rect": rect, "clicked": clicked})
-            self.buttons.append(row)
+            row_buttons = []
+            for colj, label in enumerate(row):
+                x = colj * button_width
+                y = rowi * button_height + y_offset
+                rect = pg.Rect(x + 1, y + 2, button_width - 3, button_height - 3)
+                row_buttons.append({"rect": rect, "clicked": False, "label": label})
+
+            self.buttons.append(row_buttons)
+
+        # print(self.buttons)
 
     def SetUp(self):
         self.screen.fill(self.GUI_Colors["BACKGROUND"])
+        self.Trig_func_dropdown()
         for i, row in enumerate(self.buttons):
+
             for j, pos in enumerate(row):
-                # clicked = self.buttons[i][j]["clicked"]
+
                 self.Button(
                     pos["rect"].x,
                     pos["rect"].y,
-                    self.button_w,
-                    self.button_h,
+                    pos["rect"].width,
+                    pos["rect"].height,
                     self.button_array[i][j],
                     pos["clicked"],
                 )
+
         pg.display.flip()
 
     def Button(self, x, y, Width, Height, Text, clicked):
@@ -111,21 +126,20 @@ class GUI:
                         self.Button(
                             button["rect"].x,
                             button["rect"].y,
-                            self.button_w,
-                            self.button_h,
+                            button["rect"].width,
+                            button["rect"].height,
                             self.button_array[self.buttons.index(row)][
                                 row.index(button)
                             ],
                             button["clicked"],
                         )
-                        print("clicked")
                     elif not mosue_pressed and button["clicked"]:
                         button["clicked"] = False
                         self.Button(
                             button["rect"].x,
                             button["rect"].y,
-                            self.button_w,
-                            self.button_h,
+                            button["rect"].width,
+                            button["rect"].height,
                             self.button_array[self.buttons.index(row)][
                                 row.index(button)
                             ],
@@ -134,8 +148,7 @@ class GUI:
                         print("unclicked")
 
 
-g = GUI()  # Initialize once
-# g.button_matrix()
+g = GUI()
 run = True
 
 while run:
@@ -143,6 +156,7 @@ while run:
         if e.type == pg.QUIT:
             run = False
     g.update()
+    g.SetUp()
     pg.display.flip()
     g.clock.tick(60)
 pg.quit()
