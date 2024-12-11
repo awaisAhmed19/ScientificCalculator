@@ -30,24 +30,49 @@ class GUI:
             ["log", "1", "2", "3", "+"],
             ["ln", "∓", "0", ".", "="],
         ]
-
+        self.display_text = ""
         self.buttons = None
-        self.button_w = (self.WIDTH / 5) - 3
-        self.button_h = (self.HEIGHT / 18) - 3
         self.button_rect = None
         self.button_position = []
         self.button_matrix()
 
-    def Trig_func_dropdown(self):
+        # self.button_matrix()
+
+    def text_Display(self):
+        text_box = pg.Rect(1, 1, self.WIDTH - 3, (self.HEIGHT / 4) - 3)
+        text_surface = self.font.render(
+            self.preprocessed(self.display_text), True, self.GUI_Colors["BLACK"]
+        )
+        text_rect = text_surface.get_rect(center=text_box.center)
+        self.screen.blit(text_surface, text_rect)
         pg.draw.line(
             self.screen,
             self.GUI_Colors["WHITE"],
-            (0, (self.HEIGHT / 2) - (self.HEIGHT / 14)),
-            (self.WIDTH, (self.HEIGHT / 2) - (self.HEIGHT / 14)),
-            2,
+            text_box.topleft,
+            text_box.bottomleft,
+            4,
         )
-
-        # self.button_matrix()
+        pg.draw.line(
+            self.screen,
+            self.GUI_Colors["WHITE"],
+            text_box.bottomleft,
+            text_box.bottomright,
+            4,
+        )
+        pg.draw.line(
+            self.screen,
+            self.GUI_Colors["BLACK"],
+            text_box.topleft,
+            text_box.topright,
+            4,
+        )
+        pg.draw.line(
+            self.screen,
+            self.GUI_Colors["BLACK"],
+            text_box.topright,
+            text_box.bottomright,
+            4,
+        )
 
     def button_matrix(self):
         self.buttons = []
@@ -62,20 +87,19 @@ class GUI:
             for colj, label in enumerate(row):
                 x = colj * button_width
                 y = rowi * button_height + y_offset
-                rect = pg.Rect(x + 1, y + 2, button_width - 3, button_height - 3)
+                rect = pg.Rect(x + 2, y + 2, button_width - 3, button_height - 3)
                 row_buttons.append({"rect": rect, "clicked": False, "label": label})
 
             self.buttons.append(row_buttons)
 
-        # print(self.buttons)
+    def preprocessed(self, text):
+        return 0
 
     def SetUp(self):
         self.screen.fill(self.GUI_Colors["BACKGROUND"])
-        self.Trig_func_dropdown()
+        self.text_Display()
         for i, row in enumerate(self.buttons):
-
             for j, pos in enumerate(row):
-
                 self.Button(
                     pos["rect"].x,
                     pos["rect"].y,
@@ -84,7 +108,6 @@ class GUI:
                     self.button_array[i][j],
                     pos["clicked"],
                 )
-
         pg.display.flip()
 
     def Button(self, x, y, Width, Height, Text, clicked):
@@ -133,6 +156,7 @@ class GUI:
                             ],
                             button["clicked"],
                         )
+                        self.display_text += button["label"]
                     elif not mosue_pressed and button["clicked"]:
                         button["clicked"] = False
                         self.Button(
