@@ -2,7 +2,7 @@ import math
 
 
 class Precedence:
-    OPERATORS = {"^", "*", "÷", "+", "-", "!", "/"}
+    OPERATORS = {"^", "*", "÷", "+", "-", "!", "/", "%"}
 
     PRECEDENCE = {
         "(": 0,
@@ -10,6 +10,7 @@ class Precedence:
         "^": 4,
         "*": 3,
         "÷": 3,
+        "%": 3,
         "/": 3,
         "+": 2,
         "-": 2,
@@ -17,7 +18,7 @@ class Precedence:
         "sin": 4,
         "cos": 4,
         "tan": 4,
-        "Sqrt": 4,
+        "√": 4,
         "log": 4,
         "abs": 4,
         "floor": 4,
@@ -32,6 +33,7 @@ class Precedence:
         "^": False,
         "*": True,
         "÷": True,
+        "%": True,
         "+": True,
         "-": True,
         "!": False,

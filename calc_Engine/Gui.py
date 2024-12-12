@@ -95,23 +95,36 @@ class GUI:
 
             self.buttons.append(row_buttons)
 
+    def is_display_empty(self):
+        return self.display_text == ""
+
+    def clear_display(self):
+        self.display_text = ""
+
     def preprocessed(self, text):
+
         match (text):
             case "2nd":
                 pass
             case "π":
+                self.clear_display()
                 self.display_text += str(math.pi)
+
             case "e":
+                self.clear_display()
                 self.display_text += str(math.e)
             case "C":
-                self.display_text = ""
+                self.clear_display()
             case "→":
-                if self.display_text != "":
+                if not self.is_display_empty():
                     self.display_text = self.display_text[:-1]
             case "𝑥²":
-                self.display_text += "^2"
+                if self.is_display_empty():
+                    self.display_text += "0^2"
+                else:
+                    self.display_text = f"({self.display_text})^2"
             case "¹/𝑥":
-                self.display_text = "1/" + self.display_text
+                self.display_text = f"1/({self.display_text})"
             case "|𝑥|":
                 number = float(self.display_text)
                 if number < 0:
@@ -125,18 +138,28 @@ class GUI:
             case "²√𝑥":
                 self.display_text = f"√({self.display_text})"
             case "(":
-                if self.display_text == "":
+                if self.is_display_empty():
                     self.display_text += "("
                 else:
                     self.display_text += "*("
             case ")":
                 self.display_text += ")"
+                if self.display_text == "()":
+                    self.display_text = "(0)"
+
             case "n!":
-                self.display_text += "!"
+
+                if self.is_display_empty():
+                    self.display_text += "!"
+                else:
+                    self.display_text = f"({self.display_text})!"
             case "÷":
                 self.display_text += "÷"
             case "𝑥ʸ":
-                self.display_text += "^"
+                if self.is_display_empty():
+                    self.display_text += "0^"
+                else:
+                    self.display_text = f"({self.display_text})^"
             case "x":
                 self.display_text += "*"
             case "10ⁿ":
@@ -152,11 +175,11 @@ class GUI:
             case "∓":
                 self.display_text = str(float(self.display_text) * (-1))
             case "=":
-                if self.display_text == "":
+                if self.is_display_empty():
                     self.display_text += "enter a number"
                 else:
                     input_text = self.display_text
-                    self.display_text = ""
+                    self.clear_display()
                     result = p.Post_Evaluation(input_text)
                     print(f"Post_Evaluation returned: {result}")  # Debug
                     if result is None:
@@ -165,7 +188,11 @@ class GUI:
                         self.display_text += str(self.isfloating(result))
                         print(self.display_text)
             case _:
-                self.display_text += text
+                if self.display_text == "0":
+                    self.clear_display()
+                    self.display_text += text
+                else:
+                    self.display_text += text
         return self.display_text
 
     def isfloating(self, num):

@@ -1,6 +1,13 @@
 from calculations import Calculations
-from ExpressionChecker import is_digit, is_function, is_letter, is_operator
+from ExpressionChecker import (
+    is_digit,
+    is_function,
+    is_letter,
+    is_operator,
+    is_floating_point,
+)
 from PostfixConv import PostfixConv
+import math
 
 cal = Calculations()
 PC = PostfixConv()
@@ -16,10 +23,15 @@ class Post_Evaluation:
     def Post_Evaluation(self, exp):
 
         self.expression = PC.postfix(exp)
-        print("exp", self.expression)
+        # print("exp", self.expression)
         for token in self.expression:
-            if is_digit(token) or (token[0] == "-" and is_digit(token[1:])):
+            if (
+                is_digit(token)
+                or is_floating_point(token)
+                or (token[0] == "-" and is_digit(token[1:]))
+            ):
                 self.output.append(float(token))
+                # print(self.output)
             elif is_operator(token):
                 if token == "-" and len(self.output) >= 2:
                     op1 = self.output.pop()
@@ -56,6 +68,8 @@ class Post_Evaluation:
             return self.div(a, b)
         elif token == "^":
             return self.power(a, b)
+        elif token == "%":
+            return self.mod(a, b)
 
     def add(self, x, y):
         return x + y
@@ -65,6 +79,14 @@ class Post_Evaluation:
 
     def mul(self, x, y):
         return x * y
+
+    def mod(self, x, y):
+        result = math.floor(self.div(x, y))
+        print("aftre abs", result)
+        newy = self.mul(result, y)
+        fresult = self.sub(x, newy)
+        print(x % y)
+        return fresult
 
     def div(self, x, y):
         if y == 0:
@@ -87,12 +109,21 @@ class Post_Evaluation:
         return x * (-1)
 
     def Fact(self, op):
-        # print("called fact")
-        if op == 0:
-            return 1
-        else:
-            return op * self.Fact(op - 1)
+        if op < 0:
+            raise ValueError("Factorial is not defined for negative numbers.")
+
+        if op.is_integer():
+            op = int(op)
+            if op == 0 or op == 1:
+                return 1
+
+            fact = 1
+            for i in range(2, op + 1):
+                fact *= i
+            return fact
+        else:  # For non-integers, use the Gamma function
+            return math.gamma(op + 1)
 
 
-# p = Post_Evaluation()
-# print(p.Post_Evaluation("6÷8"))
+p = Post_Evaluation()
+print(p.Post_Evaluation("√(7)"))

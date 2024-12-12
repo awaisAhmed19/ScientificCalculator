@@ -15,17 +15,18 @@ class PostfixConv:
     def postfix(self, expression):
         tokenList = None
         tokenList = tk.tokenize(expression)
-        print("token", tokenList)
+        # print("token", tokenList)
 
         for i in tokenList:
-            if is_digit(i):
+            if is_digit(i) or is_floating_point(i):
                 self.output.append(i)
+                # print("isdigit:", self.output)
             elif i == "(":
                 self.operator.append(i)
             elif i == ")":
                 while self.operator and self.operator[-1] != "(":
                     self.output.append(self.operator.pop())
-                self.operator.pop()  # Remove the '('
+                self.operator.pop()
             elif is_operator(i):
                 while (
                     self.operator
@@ -42,14 +43,15 @@ class PostfixConv:
                 self.operator.append(i)
             elif is_function(i):
                 self.operator.append(i)
+                print("after operator:", self.operator)
             elif i == "-":
                 if not self.output or self.output[-1] in "([":
-                    self.output.append("0")  # Add a '0' to represent the unary minus
+                    self.output.append("0")
                 self.operator.append(i)
 
         while self.operator:
             self.output.append(self.operator.pop())
 
         result = list(self.output)
-        print("result:", result)
+        # print("result:", result)
         return result

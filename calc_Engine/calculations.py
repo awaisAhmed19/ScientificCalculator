@@ -6,7 +6,6 @@ PI = 3.14159265358979323846
 
 
 class Calculations:
-
     def __init__(self):
         self.x = 0
         self.y = 0
@@ -124,7 +123,7 @@ class Calculations:
                     return self._cos(value)
                 case "tan":
                     return self._tan(value)
-                case "sqrt":
+                case "√":
                     return self._sqrt(value)
                 case "log2":
                     return self._log2(value)
