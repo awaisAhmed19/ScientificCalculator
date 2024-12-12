@@ -4,6 +4,7 @@ from TrignometricTable import *
 
 PI = 3.14159265358979323846
 
+
 class Calculations:
 
     def __init__(self):
@@ -11,10 +12,10 @@ class Calculations:
         self.y = 0
 
     def _rad(self, value):
-        return (PI/180) * value
+        return (PI / 180) * value
 
     def _deg(self, value):
-        return (180/PI) * value
+        return (180 / PI) * value
 
     def _sin(self, value):
         angle = self._rad(value)
@@ -23,7 +24,7 @@ class Calculations:
 
         for n in range(0, 20):
             # Calculate each term using the formula: angle^(2n+1)/(2n+1)!
-            term = angle**(2 * n + 1) / math.factorial(2 * n + 1)
+            term = angle ** (2 * n + 1) / math.factorial(2 * n + 1)
             result += sign * term
             sign *= -1
 
@@ -35,7 +36,7 @@ class Calculations:
         sign = 1
         for n in range(0, 20):
             # Calculate each term using the formula: angle^(2n)/(2n)!
-            term = angle**(2 * n) / math.factorial(2 * n)
+            term = angle ** (2 * n) / math.factorial(2 * n)
             result += sign * term
             sign *= -1
 
@@ -77,8 +78,10 @@ class Calculations:
 
     def _alog(self, value):
         return 10**value
-    def _inv(self,value):
-        return 1/value
+
+    def _inv(self, value):
+        return 1 / value
+
     def _log10(self, value, precision=0.000000000000001):
         if value <= 0:
             return None
@@ -107,29 +110,31 @@ class Calculations:
         special_angles = {0, 30, 45, 60, 90, 180, 270, 360}
         if value in special_angles:
             match func:
-                case 'sin':
+                case "sin":
                     return SIN.get(value)
-                case 'cos':
+                case "cos":
                     return COS.get(value)
-                case 'tan':
+                case "tan":
                     return TAN.get(value)
         else:
             match func:
-                case 'sin':
+                case "sin":
                     return self._sin(value)
-                case 'cos':
+                case "cos":
                     return self._cos(value)
-                case 'tan':
+                case "tan":
                     return self._tan(value)
-                case 'sqrt':
+                case "sqrt":
                     return self._sqrt(value)
-                case 'log2':
+                case "log2":
                     return self._log2(value)
-                case 'log10':
+                case "log10":
                     return self._log10(value)
-                case 'log':
+                case "log":
                     return self._log10(value)
-                case 'alog':
+                case "log":
+                    return self._log10(value)
+                case "alog":
                     return self._alog(value)
-                case 'inv':
+                case "inv":
                     return self._inv(value)

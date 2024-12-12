@@ -9,7 +9,7 @@ TAN = {
     90: None,
     180: 0,
     270: None,
-    360: 0
+    360: 0,
 }
 
 # Lookup table for sine (SIN) values at specific angles
@@ -21,7 +21,7 @@ SIN = {
     90: 1,
     180: 0,
     270: -1,
-    360: 0
+    360: 0,
 }
 
 # Lookup table for cosine (COS) values at specific angles
@@ -33,5 +33,5 @@ COS = {
     90: 0,
     180: -1,
     270: 0,
-    360: 1
+    360: 1,
 }

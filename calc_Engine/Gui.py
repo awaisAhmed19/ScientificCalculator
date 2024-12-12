@@ -1,11 +1,14 @@
 import pygame as pg
 from pygame.locals import *
+import math
+from Postfix_Evaluation import Post_Evaluation
+
+p = Post_Evaluation()
 
 
 class GUI:
     def __init__(self):
         pg.init()
-        # self.surface = pg.display.get_surface()
         self.WIDTH, self.HEIGHT = 310, 530
         self.SIZE = (self.WIDTH, self.HEIGHT)
         self.font = pg.font.SysFont("Segoe UI Symbol ", 20)
@@ -25,7 +28,7 @@ class GUI:
             ["2nd", "π", "e", "C", "→"],
             ["𝑥²", "¹/𝑥", "|𝑥|", "exp", "mod"],
             ["²√𝑥", "(", ")", "n!", "÷"],
-            ["𝑥ʸ", "7", "8", "9", "𝑥"],
+            ["𝑥ʸ", "7", "8", "9", "x"],
             ["10ⁿ", "4", "5", "6", "-"],
             ["log", "1", "2", "3", "+"],
             ["ln", "∓", "0", ".", "="],
@@ -41,9 +44,9 @@ class GUI:
     def text_Display(self):
         text_box = pg.Rect(1, 1, self.WIDTH - 3, (self.HEIGHT / 4) - 3)
         text_surface = self.font.render(
-            self.preprocessed(self.display_text), True, self.GUI_Colors["BLACK"]
+            self.display_text, True, self.GUI_Colors["BLACK"]
         )
-        text_rect = text_surface.get_rect(center=text_box.center)
+        text_rect = text_surface.get_rect(right=text_box.right)
         self.screen.blit(text_surface, text_rect)
         pg.draw.line(
             self.screen,
@@ -93,7 +96,84 @@ class GUI:
             self.buttons.append(row_buttons)
 
     def preprocessed(self, text):
-        return 0
+        match (text):
+            case "2nd":
+                pass
+            case "π":
+                self.display_text += str(math.pi)
+            case "e":
+                self.display_text += str(math.e)
+            case "C":
+                self.display_text = ""
+            case "→":
+                if self.display_text != "":
+                    self.display_text = self.display_text[:-1]
+            case "𝑥²":
+                self.display_text += "^2"
+            case "¹/𝑥":
+                self.display_text = "1/" + self.display_text
+            case "|𝑥|":
+                number = float(self.display_text)
+                if number < 0:
+                    number *= -1
+                self.display_text = str(number)
+            case "exp":
+                pass
+            case "mod":
+                self.display_text += "%"
+
+            case "²√𝑥":
+                self.display_text = f"√({self.display_text})"
+            case "(":
+                if self.display_text == "":
+                    self.display_text += "("
+                else:
+                    self.display_text += "*("
+            case ")":
+                self.display_text += ")"
+            case "n!":
+                self.display_text += "!"
+            case "÷":
+                self.display_text += "÷"
+            case "𝑥ʸ":
+                self.display_text += "^"
+            case "x":
+                self.display_text += "*"
+            case "10ⁿ":
+                self.display_text = f"10^({self.display_text})"
+            case "-":
+                self.display_text += "-"
+            case "log":
+                self.display_text = f"log({self.display_text})"
+            case "+":
+                self.display_text += "+"
+            case "ln":
+                self.display_text = f"ln({self.display_text})"
+            case "∓":
+                self.display_text = str(float(self.display_text) * (-1))
+            case "=":
+                if self.display_text == "":
+                    self.display_text += "enter a number"
+                else:
+                    input_text = self.display_text
+                    self.display_text = ""
+                    result = p.Post_Evaluation(input_text)
+                    print(f"Post_Evaluation returned: {result}")  # Debug
+                    if result is None:
+                        self.display_text += " Error: Invalid Expression"
+                    else:
+                        self.display_text += str(self.isfloating(result))
+                        print(self.display_text)
+            case _:
+                self.display_text += text
+        return self.display_text
+
+    def isfloating(self, num):
+        if num.is_integer():
+            print("done")
+            return int(num)
+
+        return float(num)
 
     def SetUp(self):
         self.screen.fill(self.GUI_Colors["BACKGROUND"])
@@ -156,7 +236,7 @@ class GUI:
                             ],
                             button["clicked"],
                         )
-                        self.display_text += button["label"]
+                        self.preprocessed(button["label"])
                     elif not mosue_pressed and button["clicked"]:
                         button["clicked"] = False
                         self.Button(
