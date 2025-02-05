@@ -82,10 +82,10 @@ class Post_Evaluation:
 
     def mod(self, x, y):
         result = math.floor(self.div(x, y))
-        print("aftre abs", result)
+        # print("aftre abs", result)
         newy = self.mul(result, y)
         fresult = self.sub(x, newy)
-        print(x % y)
+        # print(x % y)
         return fresult
 
     def div(self, x, y):
@@ -125,5 +125,5 @@ class Post_Evaluation:
             return math.gamma(op + 1)
 
 
-p = Post_Evaluation()
-print(p.Post_Evaluation("√(7)"))
+# p = Post_Evaluation()
+# print(p.Post_Evaluation("√(7)"))

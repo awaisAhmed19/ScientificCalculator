@@ -44,5 +44,5 @@ class Tokenizer:
         pattern = "|".join(f"({p})" for p in self.pattern_dict.keys())
         matches = re.findall(pattern, expression)
         tokens = [group for match in matches for group in match if group]
-        print(tokens)
+        # print(tokens)
         return tokens

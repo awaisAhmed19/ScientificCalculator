@@ -43,7 +43,7 @@ class PostfixConv:
                 self.operator.append(i)
             elif is_function(i):
                 self.operator.append(i)
-                print("after operator:", self.operator)
+                # print("after operator:", self.operator)
             elif i == "-":
                 if not self.output or self.output[-1] in "([":
                     self.output.append("0")

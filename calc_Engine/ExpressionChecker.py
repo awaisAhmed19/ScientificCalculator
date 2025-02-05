@@ -26,6 +26,6 @@ def is_letter(token):
 
 def is_function(token):
     functions = ["sin", "cos", "tan", "√", "log2", "log10", "log", "alog", "inv"]
-    t = token.lower() in functions
-    print("t", t)
+    # t = token.lower() in functions
+    # print("t", t)
     return token.lower() in functions

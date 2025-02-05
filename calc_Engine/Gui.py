@@ -181,12 +181,12 @@ class GUI:
                     input_text = self.display_text
                     self.clear_display()
                     result = p.Post_Evaluation(input_text)
-                    print(f"Post_Evaluation returned: {result}")  # Debug
+                    # print(f"Post_Evaluation returned: {result}")  # Debug
                     if result is None:
                         self.display_text += " Error: Invalid Expression"
                     else:
                         self.display_text += str(self.isfloating(result))
-                        print(self.display_text)
+                        # print(self.display_text)
             case _:
                 if self.display_text == "0":
                     self.clear_display()
@@ -197,7 +197,7 @@ class GUI:
 
     def isfloating(self, num):
         if num.is_integer():
-            print("done")
+            # print("done")
             return int(num)
 
         return float(num)
@@ -276,7 +276,7 @@ class GUI:
                             ],
                             button["clicked"],
                         )
-                        print("unclicked")
+                        # print("unclicked")
 
 
 g = GUI()
